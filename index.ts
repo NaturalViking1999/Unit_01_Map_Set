@@ -68,15 +68,25 @@ const arrDate: Array<IProtoData> = [
     }
 ]
 
-let uniq = {}
-const newArrDate = arrDate.filter(obj => !uniq[obj.temp.city] && (uniq[obj.temp.city] = true));
-const dateSet = new Set(newArrDate);
+// let uniq = {}
+// const newArrDate = arrDate.filter(obj => !uniq[obj.temp.city] && (uniq[obj.temp.city] = true));
+// const dateSet = new Set(newArrDate);
+
+
+// const dateMap = new Map();
+// newArrDate.forEach((obj, index) => {
+//     dateMap.set(newArrDate[index].dt + ' ' + index, obj)
+// });
+
+const dateSet = new Set();
+arrDate.forEach(obj => dateSet.add(obj.dt));
 
 console.log(dateSet);
 
 const dateMap = new Map();
-newArrDate.forEach((obj, index) => {
-    dateMap.set(newArrDate[index].dt + ' ' + index, obj)
-});
+arrDate.forEach(obj => {
+    const newObj = Object.assign({}, obj);
+    dateMap.get(obj.dt) ? dateMap.get(obj.dt).push(newObj) : dateMap.set(obj.dt, [newObj]);
+})
 
 console.log(dateMap);
